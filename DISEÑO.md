@@ -62,3 +62,8 @@ quien (persona o agente) rediseñe la plantilla.
 - **Qué no hacer**: volver a la columna estrecha o a las tarjetas blancas sobre gris; poner el esmeralda puro como
   texto sobre blanco; meter precios, cifras o nombres de compañías reales en los componentes (todo sale de
   `site.yaml`; las aseguradoras del ejemplo son inventadas).
+
+## Páginas propias (fichas)
+Con la misma piel que la portada: cabecera y pie de la plantilla, migas (Inicio › Sección › Elemento), hero con la foto del
+elemento (sin foto, su icono), `detalle` en párrafos, tabla de datos, caja de contacto, galería (`imagenes`) y otros elementos
+de la misma lista.

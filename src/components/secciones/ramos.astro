@@ -3,12 +3,14 @@
 // fotos de borde a borde, sin márgenes: cada ramo es una ficha con su foto a sangre, velo marino, icono en
 // círculo esmeralda, título en serifa, texto y enlace. En escritorio, rejilla de 6 columnas que reparte
 // 2 + 3, 3 + 3… según cuántos haya. Sin foto, la ficha va en color pleno.
-// `ramos`: titulo, texto, icono, imagen, url.
+// `ramos`: titulo, texto, icono, imagen, url. Los ramos con `detalle` tienen página propia (/seguros/<ramo>/): el título
+// y «Ver más» la enlazan; el resto sigue con su enlace «Pedir precio».
 import { seccion, externo } from '../../data/site';
 import { altFicha } from '../../lib/seo';
 import Titular from '../ui/Titular.astro';
 import Imagen from '../ui/Imagen.astro';
 import Icono from '../ui/Icono.astro';
+import { enlaceDe } from '../../lib/paginas';
 interface Props { id: string }
 const s = seccion(Astro.props.id);
 const ramos = s ? s.ramos.slice(0, 24) : [];
@@ -43,9 +45,11 @@ const ancho = (i: number) => {
               {r.imagen && <Imagen src={r.imagen} alt={altFicha(r)} ancho={1000} alto={750} class="absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />}
               {r.imagen && <span class="ramo-velo absolute inset-0 -z-10" aria-hidden="true" />}
               <span class="grid h-14 w-14 place-items-center rounded-full bg-acento text-[var(--c-oscuro)]" aria-hidden="true"><Icono nombre={r.icono || 'escudo'} tam={26} /></span>
-              <h3 class="mt-5 text-[2rem] md:text-[2.4rem]">{r.titulo}</h3>
+              <h3 class="mt-5 text-[2rem] md:text-[2.4rem]">{enlaceDe(r) ? <a href={enlaceDe(r)} class="ramo-enlace">{r.titulo}</a> : r.titulo}</h3>
               {r.texto && <p class="mt-2 max-w-md opacity-90">{r.texto}</p>}
-              {r.url && (
+              {enlaceDe(r) ? (
+                <span class="enlace-flecha mt-3 text-acento" aria-hidden="true">Ver más <Icono nombre="flecha" tam={18} /></span>
+              ) : r.url && (
                 <a href={r.url} class="enlace-flecha mt-3 text-acento after:absolute after:inset-0" {...(externo(r.url) && { rel: 'noopener', target: '_blank' })}>
                   Pedir precio <span class="sr-only">de {r.titulo}</span><Icono nombre="flecha" tam={18} />
                 </a>
@@ -60,5 +64,8 @@ const ancho = (i: number) => {
 
 <style>
   .ramo-velo { background: linear-gradient(to top, color-mix(in srgb, var(--c-oscuro) 94%, transparent) 10%, color-mix(in srgb, var(--c-primario) 55%, transparent) 55%, color-mix(in srgb, var(--c-primario) 15%, transparent)); }
+  .ramo-enlace { color: inherit; text-decoration: none; }
+  .ramo-enlace::after { content: ""; position: absolute; inset: 0; }
+  .ramo-enlace:focus-visible { outline: 3px solid var(--c-acento); outline-offset: -6px; }
   .ramo + .ramo { box-shadow: inset 1px 0 0 color-mix(in srgb, #fff 18%, transparent); }
 </style>

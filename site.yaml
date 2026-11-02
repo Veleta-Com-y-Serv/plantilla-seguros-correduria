@@ -59,11 +59,61 @@ secciones:
     texto: "Particulares, autónomos y empresas. Te explicamos qué cubre cada póliza, qué no y cuánto cuesta, sin letra pequeña."
     cta: { texto: Pide tu comparativa, url: "/#presupuesto" }
     ramos:
-      - { titulo: Hogar, texto: "Daños por agua, robo, responsabilidad civil y asistencia 24 horas para tu casa o tu alquiler.", icono: casa, imagen: /fotos/ramo-hogar.jpg, url: "/#presupuesto" }
-      - { titulo: Coche y moto, texto: "Terceros, terceros ampliado o todo riesgo, con o sin franquicia. Y asistencia en carretera desde el kilómetro cero.", icono: coche, imagen: /fotos/ramo-coche.jpg, url: "/#presupuesto" }
-      - { titulo: Vida, texto: "Protege a los tuyos y tu hipoteca con un capital a tu medida, también desvinculado del banco.", icono: corazon, imagen: /fotos/ramo-vida.jpg, url: "/#presupuesto" }
-      - { titulo: Salud, texto: "Cuadro médico amplio en Huelva y en toda España, con o sin copago y dental incluido.", icono: salud, imagen: /fotos/ramo-salud.jpg, url: "/#presupuesto" }
-      - { titulo: Empresa y autónomos, texto: "Responsabilidad civil, comercio, flotas, accidentes y convenio. Todo revisado una vez al año.", icono: maletin, imagen: /fotos/ramo-empresa.jpg, url: "/#presupuesto" }
+      - titulo: Hogar
+        texto: "Daños por agua, robo, responsabilidad civil y asistencia 24 horas para tu casa o tu alquiler."
+        icono: casa
+        imagen: /fotos/ramo-hogar.jpg
+        url: "/#presupuesto"
+        detalle: |
+          Tu casa es probablemente lo más caro que tienes, y el seguro de hogar protege tanto el continente, que son las paredes, los suelos y las instalaciones, como el contenido, que son los muebles, la ropa y los aparatos. También cubre la responsabilidad civil si un escape de agua moja al vecino de abajo.
+
+          Antes de recomendarte una póliza revisamos contigo qué hay que asegurar y por qué valor, porque asegurar de menos es el error más caro: si el capital se queda corto, la aseguradora paga en proporción. Comparamos varias compañías con las mismas condiciones para que el precio sea comparable de verdad.
+
+          Te explicamos qué entra en cada garantía, qué excluye y qué franquicia hay. Si eres inquilino, te contamos qué le corresponde asegurar al propietario y qué te interesa cubrir a ti. Y si hay un siniestro, abrimos el parte, hablamos con el perito y te acompañamos hasta que se cierra.
+      - titulo: Coche y moto
+        texto: "Terceros, terceros ampliado o todo riesgo, con o sin franquicia. Y asistencia en carretera desde el kilómetro cero."
+        icono: coche
+        imagen: /fotos/ramo-coche.jpg
+        url: "/#presupuesto"
+        detalle: |
+          El seguro obligatorio cubre lo que le haces a otros, pero no lo que le pasa a tu vehículo. Entre los terceros básicos y el todo riesgo hay muchas combinaciones, y la diferencia de precio no siempre se corresponde con la diferencia de cobertura.
+
+          Miramos contigo cuántos años tiene el vehículo, cuánto lo usas y dónde lo aparcas, y te enseñamos presupuestos de varias compañías con terceros, terceros ampliado con lunas y robo, y todo riesgo, con y sin franquicia. Así ves qué estás pagando exactamente en cada caso.
+
+          También revisamos la asistencia en carretera, el vehículo de sustitución y la defensa jurídica, que son los extras que se echan de menos el día que hacen falta. Si tienes un parte, te explicamos cómo se tramita y qué esperar del taller y del perito. Y antes de cada renovación volvemos a mirar el mercado, por si hay algo mejor para ti.
+      - titulo: Vida
+        texto: "Protege a los tuyos y tu hipoteca con un capital a tu medida, también desvinculado del banco."
+        icono: corazon
+        imagen: /fotos/ramo-vida.jpg
+        url: "/#presupuesto"
+        detalle: |
+          Un seguro de vida sirve para que quienes dependen de ti puedan seguir con su vida si a ti te pasa algo: pagar la hipoteca, mantener los estudios de los hijos o simplemente tener margen de maniobra. No es un producto para todo el mundo, pero para quien tiene responsabilidades es una de las decisiones más sensatas.
+
+          Hablamos contigo de tu situación familiar, de tus deudas y de cuánto necesitarían los tuyos, y a partir de ahí calculamos un capital razonable. Comparamos entre varias aseguradoras, incluidas las que ofrecen la póliza desvinculada del banco, que muchas veces sale más barata que la que viene con la hipoteca.
+
+          Te explicamos con claridad las coberturas de fallecimiento e invalidez, el cuestionario de salud, que conviene rellenar con sinceridad, y cómo se cobra llegado el caso. Y si tu vida cambia, revisamos la póliza contigo.
+      - titulo: Salud
+        texto: "Cuadro médico amplio en Huelva y en toda España, con o sin copago y dental incluido."
+        icono: salud
+        imagen: /fotos/ramo-salud.jpg
+        url: "/#presupuesto"
+        detalle: |
+          Un seguro de salud te da acceso a médicos y pruebas sin esperar las listas de la sanidad pública, y a elegir especialista. Pero no todos los cuadros médicos son iguales, y lo que importa es qué hay cerca de tu casa y de tu trabajo.
+
+          Empezamos por preguntarte dónde vives, qué especialistas usas y si te interesa una póliza con copago o sin él. Comparamos varias compañías mirando el cuadro médico de Huelva y de otras provincias, los hospitales concertados, las urgencias, el dental y las carencias, que es el tiempo que hay que esperar para usar ciertas coberturas.
+
+          Te contamos qué no cubre cada póliza, porque ahí suelen estar las sorpresas, y cómo funcionan las autorizaciones. Si ya tienes un seguro y no estás a gusto, te ayudamos a valorar el cambio sin perder antigüedad ni quedarte sin cobertura por el camino.
+      - titulo: Empresa y autónomos
+        texto: "Responsabilidad civil, comercio, flotas, accidentes y convenio. Todo revisado una vez al año."
+        icono: maletin
+        imagen: /fotos/ramo-empresa.jpg
+        url: "/#presupuesto"
+        detalle: |
+          Quien trabaja por su cuenta o tiene un negocio se juega algo más que un coche o una casa: se juega su actividad. La responsabilidad civil protege frente a lo que un cliente o un tercero te reclame por un daño, y es la cobertura que casi nunca debería faltar.
+
+          Revisamos tu actividad, tu local y tu equipo y proponemos el paquete que tiene sentido: responsabilidad civil, contenido y daños del local, accidentes de las personas que trabajan contigo, flota de vehículos o el seguro de convenio si te lo exige tu sector. Comparamos entre varias aseguradoras para que no pagues dos veces lo mismo.
+
+          Nos gusta repasarlo una vez al año con calma, porque un negocio cambia: nuevo local, nuevas máquinas, nueva persona contratada. Si hay un siniestro, gestionamos el parte y hablamos con la compañía por ti, para que tú sigas atendiendo a tus clientes.
 
   ventajas:
     activa: true
