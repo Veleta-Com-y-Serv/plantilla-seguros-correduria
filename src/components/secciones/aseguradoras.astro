@@ -1,0 +1,43 @@
+---
+// Aseguradoras con las que trabaja la correduría: banda marino profundo; titular a la izquierda y texto a la
+// derecha; debajo, una rejilla de «sellos» de texto con filetes (2, 3 o 4 columnas) a todo el ancho del
+// contenido: monograma en escudo, nombre en serifa y ramos en pequeño. Son nombres, no logotipos.
+// `items`: titulo (nombre de la compañía), texto (ramos, opcional).
+import { seccion, iniciales } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const items = s ? s.items : [];
+---
+
+{
+  s && items.length > 0 && (
+    <Seccion id={Astro.props.id} banda="abismo">
+      <div class="grid gap-6 lg:grid-cols-[1.4fr_1fr] lg:items-end lg:gap-16">
+        <Titular class="!mb-0" antetitulo={s.antetitulo} titulo={s.titulo} resalte={s.resalte} />
+        {s.texto && <p class="text-lg opacity-80 lg:pb-3">{s.texto}</p>}
+      </div>
+      <ul class:list={['companias mt-12 grid grid-cols-2 md:mt-16', items.length % 3 === 0 && items.length % 4 !== 0 ? 'lg:grid-cols-3' : 'lg:grid-cols-4']}>
+        {items.map((it) => (
+          <li class="compania flex min-h-[8.5rem] flex-col items-start gap-3 px-4 py-6 sm:flex-row sm:items-center sm:gap-4 sm:px-6 md:min-h-[10rem]">
+            <span class="relative grid h-12 w-11 shrink-0 place-items-center font-display text-sm font-bold text-[var(--c-oscuro)]" aria-hidden="true">
+              <svg viewBox="0 0 26 29" width="44" height="48" class="absolute"><path d="M13 1l11 4v8c0 7-4.7 12.6-11 15C6.7 25.6 2 20 2 13V5z" fill="var(--c-acento)" /></svg>
+              <span class="relative -mt-1">{iniciales(it.titulo)}</span>
+            </span>
+            <div class="min-w-0">
+              <p class="font-display text-lg font-bold leading-tight sm:text-2xl">{it.titulo}</p>
+              {it.texto && <p class="mt-1 text-xs font-semibold uppercase tracking-[.14em] opacity-60">{it.texto}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </Seccion>
+  )
+}
+
+<style>
+  .companias { border-top: 1px solid var(--c-linea-oscura); border-left: 1px solid var(--c-linea-oscura); }
+  .compania { border-right: 1px solid var(--c-linea-oscura); border-bottom: 1px solid var(--c-linea-oscura); transition: background-color .2s ease; }
+  .compania:hover { background: color-mix(in srgb, var(--c-sobre-oscuro) 5%, transparent); }
+</style>

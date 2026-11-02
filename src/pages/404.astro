@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base titulo="Página no encontrada">
+  <section class="banda banda--marino">
+    <svg class="escudo-agua -right-24 -top-20 h-[40rem] w-[36rem]" viewBox="0 0 26 29" aria-hidden="true"><path d="M13 1l11 4v8c0 7-4.7 12.6-11 15C6.7 25.6 2 20 2 13V5z" fill="currentColor"></path></svg>
+    <div class="contenedor grid min-h-[70svh] content-center py-20">
+      <p class="antetitulo">Error 404</p>
+      <h1 class="mt-6 text-[clamp(3rem,9vw,7.5rem)] font-bold leading-[.95]">Esta página <em class="resalte">no existe</em></h1>
+      <p class="mt-6 max-w-xl text-lg opacity-85">Puede que el enlace esté mal o que la página se haya movido.</p>
+      <p class="mt-10"><a class="btn" href="/">Volver al inicio</a></p>
+    </div>
+  </section>
+</Base>

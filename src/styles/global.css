@@ -1,0 +1,115 @@
+/* Seguros y correduría — estilo confiable: bandas a sangre que alternan azul marino, blanco, niebla azulada
+   y verde esmeralda; titulares en serifa de sistema, firmes y sobrios; fotos con una sola esquina curva
+   (la «esquina de póliza») y botones píldora en esmeralda. */
+@import "tailwindcss";
+@import "./comun.css";
+@config "../../tailwind.config.mjs";
+
+:root {
+  --fuente-texto: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fuente-titulos: Charter, "Bitstream Charter", "Sitka Text", Cambria, "Iowan Old Style", Georgia, serif;
+  --radio: .65rem; --ritmo: 4.5rem; --ritmo-md: 7rem; --ancho: 90rem;
+  --alto-cabecera: 4.5rem;
+  /* La esquina curva de las fotos: una sola, grande. */
+  --esquina: clamp(3rem, 9vw, 9rem);
+
+  /* Derivados de los cuatro colores de site.yaml: aguantan que el cliente los cambie. */
+  --c-oscuro: color-mix(in oklab, var(--c-primario) 70%, #000);
+  --c-claro: color-mix(in oklab, var(--c-fondo) 93%, var(--c-primario));
+  --c-sobre-oscuro: color-mix(in oklab, var(--c-fondo) 12%, #fff);
+  /* Esmeralda oscurecido: el acento como texto sobre claro (el puro no llega al contraste AA). */
+  --c-acento-texto: color-mix(in oklab, var(--c-acento) 58%, #000);
+  --c-linea: color-mix(in srgb, var(--c-texto) 13%, transparent);
+  --c-linea-oscura: color-mix(in srgb, var(--c-sobre-oscuro) 16%, transparent);
+}
+
+@layer base {
+  body { font-family: var(--fuente-texto); font-size: 1.0625rem; line-height: 1.65; background: var(--c-fondo); }
+  h1, h2, h3 { font-family: var(--fuente-titulos); font-weight: 700; letter-spacing: -0.022em; line-height: 1.06; }
+  em.resalte { font-style: normal; }
+}
+
+@layer components {
+  /* Bandas a todo el ancho: marino, abismo (marino profundo), blanca, niebla (blanco azulado) y esmeralda. */
+  .banda { position: relative; isolation: isolate; overflow: hidden; }
+  .banda--marino { background: var(--c-primario); color: var(--c-sobre-oscuro); }
+  .banda--abismo { background: var(--c-oscuro); color: var(--c-sobre-oscuro); }
+  .banda--blanca { background: var(--c-fondo); color: var(--c-texto); }
+  .banda--niebla { background: var(--c-claro); color: var(--c-texto); }
+  .banda--esmeralda { background: var(--c-acento); color: var(--c-oscuro); }
+
+  /* Antetítulo: cuadradito esmeralda delante y un filete detrás */
+  .antetitulo { display: flex; align-items: center; gap: .7rem; font-size: .72rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
+  .antetitulo::before { content: ""; width: .6rem; height: .6rem; border-radius: 2px; background: var(--c-acento); flex: none; }
+  .antetitulo::after { content: ""; width: 3rem; height: 1px; background: currentColor; opacity: .35; flex: none; display: none; }
+  @media (min-width: 640px) { .antetitulo::after { display: block; } }
+  .banda--blanca .antetitulo, .banda--niebla .antetitulo { color: var(--c-acento-texto); }
+  .banda--marino .antetitulo, .banda--abismo .antetitulo { color: var(--c-acento); }
+  .banda--esmeralda .antetitulo::before { background: var(--c-oscuro); }
+  .titular--centro .antetitulo { justify-content: center; }
+
+  .titulo-seccion { font-size: clamp(2.2rem, 5.2vw, 4.25rem); margin-top: 1rem; }
+  .banda--blanca .titulo-seccion, .banda--niebla .titulo-seccion { color: var(--c-primario); }
+  .titular { max-width: 54rem; margin-bottom: 3rem; }
+  .titular--centro { margin-inline: auto; text-align: center; }
+  .titular-texto { margin-top: 1.25rem; font-size: 1.15rem; opacity: .8; max-width: 42rem; }
+  .titular--centro .titular-texto { margin-inline: auto; }
+
+  /* Resalte: esmeralda sobre oscuro; esmeralda oscurecido con subrayado fino sobre claro. */
+  .banda--marino em.resalte, .banda--abismo em.resalte { color: var(--c-acento); }
+  .banda--blanca em.resalte, .banda--niebla em.resalte { color: var(--c-acento-texto); text-decoration: underline; text-decoration-color: var(--c-acento); text-decoration-thickness: .06em; text-underline-offset: .16em; }
+  .banda--esmeralda em.resalte { color: var(--c-sobre-oscuro); }
+
+  /* Botones píldora: esmeralda (principal), contorno y blanco */
+  .btn, .btn-sec, .btn-blanco { min-height: 3rem; padding: .75rem 1.65rem; border-radius: 999px; font-size: .95rem; font-weight: 700; letter-spacing: .005em; }
+  .btn { background: var(--c-acento); color: var(--c-oscuro); }
+  .btn:hover { background: color-mix(in oklab, var(--c-acento) 82%, #fff); }
+  .btn-sec { border: 1.5px solid color-mix(in srgb, currentColor 55%, transparent); }
+  .btn-sec:hover { border-color: currentColor; background: color-mix(in srgb, currentColor 8%, transparent); }
+  .btn-blanco { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; background: #fff; color: var(--c-primario); text-decoration: none; }
+  .btn-blanco:hover { background: var(--c-claro); }
+  .btn::after { content: "→"; font-weight: 400; transition: transform .15s ease; }
+  .btn:hover::after { transform: translateX(3px); }
+  .enlace-flecha { display: inline-flex; align-items: center; gap: .5rem; min-height: 2.75rem; font-weight: 700; text-decoration: none; }
+  .enlace-flecha svg { transition: transform .15s ease; }
+  .enlace-flecha:hover svg { transform: translateX(4px); }
+
+  /* Foto con la «esquina de póliza»: una sola esquina curva y grande */
+  .foto-esquina { border-radius: 0 0 0 var(--esquina); }
+  .foto-esquina--der { border-radius: 0 0 var(--esquina) 0; }
+  .foto-esquina--arriba { border-radius: var(--esquina) 0 0 0; }
+
+  /* Cabecera: franja fina marino profundo con teléfono y horario (escritorio) + barra blanca pegada arriba */
+  .cabecera--poliza { position: sticky; top: 0; background: var(--c-fondo); color: var(--c-texto); transition: box-shadow .2s ease; }
+  .cabecera--poliza.con-sombra { box-shadow: 0 12px 30px -18px color-mix(in srgb, var(--c-primario) 60%, transparent); }
+  .cabecera--poliza .cabecera-fila { min-height: var(--alto-cabecera); }
+  .cabecera--poliza .barra-fina { background: var(--c-oscuro); color: var(--c-sobre-oscuro); font-size: .82rem; }
+  .cabecera--poliza .marca-escudo { display: grid; place-items: center; width: 2.6rem; height: 2.9rem; flex: none; color: var(--c-primario); }
+  .cabecera--poliza .marca-nombre { font-family: var(--fuente-titulos); font-weight: 700; font-size: 1.3rem; letter-spacing: -0.02em; color: var(--c-primario); }
+  .cabecera--poliza .cabecera-nav { gap: 1.9rem; }
+  .cabecera--poliza .cabecera-nav a { font-size: .95rem; font-weight: 600; padding-block: .5rem; color: var(--c-primario); background: linear-gradient(var(--c-acento), var(--c-acento)) left bottom / 0 2px no-repeat; transition: background-size .2s ease; }
+  .cabecera--poliza .cabecera-nav a:hover { background-size: 100% 2px; }
+  .cabecera--poliza .menu-movil summary { min-height: 2.75rem; padding-inline: 1rem; border-radius: 999px; background: var(--c-primario); color: var(--c-sobre-oscuro); font-size: .9rem; }
+  .cabecera--poliza .menu-movil-panel { padding: .5rem 1rem 1.25rem; border-top: 1px solid var(--c-linea); }
+  .cabecera--poliza .menu-movil-panel a { font-weight: 600; color: var(--c-primario); }
+  .cabecera--poliza .tel-movil { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 999px; background: var(--c-acento); color: var(--c-oscuro); }
+  @media (min-width: 900px) { .cabecera--poliza .tel-movil { display: none; } }
+
+  /* Pie: marino profundo a todo el ancho */
+  .pie--poliza { background: var(--c-oscuro); color: var(--c-sobre-oscuro); padding-top: 0; }
+  .pie--poliza .pie-legal { margin-top: 0; }
+
+  /* Formularios */
+  .formulario .campo label { font-size: .85rem; font-weight: 700; color: var(--c-primario); }
+  .formulario .campo input, .formulario .campo textarea, .formulario .campo select { width: 100%; font: inherit; color: var(--c-texto); background: #fff; border: 1.5px solid var(--c-linea); border-radius: var(--radio); min-height: 3rem; padding: .7rem .9rem; }
+  .formulario .campo input:focus, .formulario .campo textarea:focus, .formulario .campo select:focus { border-color: var(--c-primario); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-acento) 55%, transparent); }
+
+  .texto-largo h2 { color: var(--c-primario); font-size: 1.6rem; }
+
+  /* Escudo de adorno (marca de agua en bandas oscuras) */
+  .escudo-agua { position: absolute; z-index: -1; pointer-events: none; color: color-mix(in srgb, var(--c-sobre-oscuro) 5%, transparent); }
+}
+
+@layer base {
+  @media (min-width: 1024px) { html { scroll-padding-top: 7.5rem; } }
+}

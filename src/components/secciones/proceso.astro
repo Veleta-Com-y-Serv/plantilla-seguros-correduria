@@ -1,0 +1,49 @@
+---
+// Cómo trabajamos (comparar → contratar → siniestro): banda blanca con el titular centrado y los pasos en una
+// vía esmeralda: en escritorio, en fila (círculo marino con el icono sobre la línea, «Paso N», plazo en
+// esmeralda, título y texto); en móvil, en columna con la línea a la izquierda.
+// `items`: titulo, texto, icono, duracion.
+import { seccion } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const pasos = s ? s.items : [];
+const cols = pasos.length >= 4 ? 'lg:grid-cols-4' : pasos.length === 3 ? 'lg:grid-cols-3' : pasos.length === 2 ? 'lg:grid-cols-2' : '';
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id} banda="blanca">
+      <Titular alinear="centro" antetitulo={s.antetitulo} titulo={s.titulo} resalte={s.resalte} texto={s.texto} />
+      {pasos.length > 0 && (
+        <ol class:list={['via relative mt-4 grid gap-10 lg:gap-12', cols]}>
+          {pasos.map((p, i) => (
+            <li class="paso relative pl-20 lg:pl-0 lg:pt-28">
+              <span class="paso-circulo absolute left-0 top-0 z-[1] grid h-14 w-14 place-items-center rounded-full bg-primario text-acento lg:left-1/2 lg:h-20 lg:w-20 lg:-translate-x-1/2" aria-hidden="true">
+                <Icono nombre={p.icono || 'check'} tam={28} />
+              </span>
+              <div class="lg:text-center">
+                <p class="text-xs font-bold uppercase tracking-[.2em] text-[var(--c-acento-texto)]">
+                  Paso {i + 1}{p.duracion && <span class="opacity-80"> · {p.duracion}</span>}
+                </p>
+                <h3 class="mt-2 text-[1.9rem] text-primario md:text-[2.2rem]">{p.titulo}</h3>
+                {p.texto && <p class="mx-auto mt-3 max-w-sm opacity-80">{p.texto}</p>}
+              </div>
+            </li>
+          ))}
+        </ol>
+      )}
+    </Seccion>
+  )
+}
+
+<style>
+  .paso::before { content: ""; position: absolute; left: 1.7rem; top: 3.5rem; bottom: -2.5rem; width: 3px; border-radius: 3px; background: var(--c-acento); }
+  .paso:last-child::before { display: none; }
+  .paso-circulo { box-shadow: 0 0 0 6px var(--c-fondo), 0 0 0 9px var(--c-acento); }
+  @media (min-width: 1024px) {
+    .paso::before { left: 50%; right: auto; top: 2.45rem; bottom: auto; width: calc(100% + 3rem); height: 3px; }
+  }
+</style>

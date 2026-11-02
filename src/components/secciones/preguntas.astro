@@ -1,0 +1,44 @@
+---
+// Preguntas frecuentes en banda blanca: titular fijo a la izquierda (con botón opcional) y acordeón nativo
+// <details> a la derecha, sin JavaScript: número en esmeralda, pregunta en serifa y un cuadrado marino con «+»
+// que gira y se vuelve esmeralda al abrir. `preguntas[]` (pregunta, respuesta). Sin preguntas no se pinta.
+// También sirve de diseño para apartados nuevos (`tipo: preguntas`).
+import { seccion } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const preguntas = s ? s.preguntas.filter((p) => p && p.pregunta) : [];
+---
+
+{
+  s && preguntas.length > 0 && (
+    <Seccion id={Astro.props.id} banda="blanca">
+      <div class="grid gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
+        <div class="lg:sticky lg:top-32 lg:self-start">
+          <Titular class="!mb-0" antetitulo={s.antetitulo} titulo={s.titulo} resalte={s.resalte} texto={s.texto} />
+          {s.cta && <a class="btn mt-8" href={s.cta.url}>{s.cta.texto}</a>}
+        </div>
+        <div class="border-b border-[var(--c-linea)]">
+          {preguntas.map((p, i) => (
+            <details class="faq border-t border-[var(--c-linea)]">
+              <summary class="flex items-start gap-4 py-6 md:gap-6 md:py-7">
+                <span class="mt-1 w-7 shrink-0 text-sm font-bold text-[var(--c-acento-texto)]">{String(i + 1).padStart(2, '0')}</span>
+                <span class="flex-1 font-display text-xl font-bold leading-snug text-primario md:text-[1.6rem]">{p.pregunta}</span>
+                <span class="faq-signo grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-primario text-2xl leading-none text-[var(--c-sobre-oscuro)]" aria-hidden="true">+</span>
+              </summary>
+              {p.respuesta && <p class="max-w-3xl pb-7 pl-11 pr-4 text-lg opacity-80 md:pl-[3.25rem] md:pr-16">{p.respuesta}</p>}
+            </details>
+          ))}
+        </div>
+      </div>
+    </Seccion>
+  )
+}
+
+<style>
+  .faq summary { list-style: none; cursor: pointer; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq-signo { transition: transform .2s ease, background-color .2s ease, color .2s ease; }
+  .faq[open] .faq-signo { transform: rotate(45deg); background: var(--c-acento); color: var(--c-oscuro); }
+</style>

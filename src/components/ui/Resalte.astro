@@ -1,0 +1,11 @@
+---
+// Pinta un título con unas palabras resaltadas (`resalte` de la sección). Si las palabras no están
+// tal cual dentro del título, el título sale entero sin resaltar: nunca se pierde texto.
+interface Props { texto?: string; resalte?: unknown }
+const t = String(Astro.props.texto ?? '');
+const r = String(Astro.props.resalte ?? '').trim();
+const i = r ? t.toLocaleLowerCase('es').indexOf(r.toLocaleLowerCase('es')) : -1;
+const partes = i >= 0 ? [t.slice(0, i), t.slice(i, i + r.length), t.slice(i + r.length)] : [t];
+---
+
+{partes.length === 3 ? <>{partes[0]}<em class="resalte">{partes[1]}</em>{partes[2]}</> : t}

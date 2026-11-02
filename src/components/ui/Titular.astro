@@ -1,0 +1,18 @@
+---
+// Titular de sección (antetítulo + título + texto). Adaptado de AstroWind (Headline.astro), © onWidget, MIT.
+// `resalte`: palabras del título que salen en esmeralda (subrayado fino sobre claro).
+import Resalte from './Resalte.astro';
+interface Props { titulo?: string; resalte?: string; antetitulo?: string; texto?: string; alinear?: 'izquierda' | 'centro'; class?: string; nivel?: 1 | 2 }
+const { titulo, resalte, antetitulo, texto, alinear = 'izquierda', class: clase = '', nivel = 2 } = Astro.props;
+const H = nivel === 1 ? 'h1' : 'h2';
+---
+
+{
+  (titulo || antetitulo || texto) && (
+    <div class:list={['titular', { 'titular--centro': alinear === 'centro' }, clase]}>
+      {antetitulo && <p class="antetitulo">{antetitulo}</p>}
+      {titulo && <H class="titulo-seccion"><Resalte texto={titulo} resalte={resalte} /></H>}
+      {texto && <p class="titular-texto">{texto}</p>}
+    </div>
+  )
+}

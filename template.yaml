@@ -1,0 +1,92 @@
+# Metadatos de la plantilla para el catálogo de NoExpertise.
+id: seguros-correduria
+nombre: Seguros y correduría
+descripcion: "Web de confianza para corredurías y agentes de seguros: ramos, comparativa, compañías y presupuesto."
+sectores:
+  - { id: seguros, nombre: Seguros }
+  - { id: correduria, nombre: Correduría de seguros }
+  - { id: agente-seguros, nombre: Agente de seguros }
+  - { id: mediador, nombre: Mediador de seguros }
+  - { id: financiero, nombre: Asesoría financiera }
+secciones:
+  - { id: hero, nombre: Portada }
+  - { id: ramos, nombre: Seguros }
+  - { id: ventajas, nombre: Por qué nosotros }
+  - { id: aseguradoras, nombre: Aseguradoras }
+  - { id: proceso, nombre: Cómo trabajamos }
+  - { id: cifras, nombre: Cifras }
+  - { id: opiniones, nombre: Opiniones }
+  - { id: preguntas, nombre: Preguntas frecuentes }
+  - { id: presupuesto, nombre: Pide tu comparativa }
+  - { id: contacto, nombre: Contacto }
+estilo: confiable
+plan_minimo: presencia
+version: 1.0.0
+base: astrowind
+demo_url: https://demo-plantilla-seguros-correduria.noexpertise.com
+activa: true
+orden: 550
+
+# Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
+# tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
+asistente:
+  - id: negocio
+    titulo: "Tu correduría"
+    pregunta: "¿Cómo se llama tu correduría o agencia de seguros y qué haces por tus clientes?"
+    ayuda: "Qué seguros ofreces, para quién (familias, autónomos, empresas) y desde dónde trabajas."
+    tipo: texto
+    campos: [nombre, eslogan, seo.titulo, seo.descripcion, secciones.hero.antetitulo, secciones.hero.titulo, secciones.hero.texto, secciones.hero.nota, secciones.hero.items]
+  - id: contacto
+    titulo: "Cómo te encuentran"
+    pregunta: "¿Dónde está tu oficina y cómo te pueden llamar o escribir?"
+    ayuda: "Solo lo que quieras que vean tus clientes. Lo que dejes vacío no sale en tu web."
+    tipo: datos
+    campos: [contacto.telefono, contacto.whatsapp, contacto.email, contacto.direccion, contacto.horario, redes.facebook, redes.instagram, redes.linkedin]
+  - id: ramos
+    titulo: "Tus seguros"
+    pregunta: "¿Qué seguros ofreces? Uno por línea, con una frase de lo que cubre."
+    ayuda: "Hogar, coche, vida, salud, empresa… Las fotos y los iconos los cambias luego en Contenido."
+    tipo: lista
+    campos: [secciones.ramos.ramos]
+  - id: ventajas
+    titulo: "Por qué tú"
+    pregunta: "¿Por qué deberían confiar en ti y no ir directamente a una aseguradora?"
+    ayuda: "Independencia, trato cercano, ayuda con los partes, revisión anual… Cuéntalo como se lo dirías a un cliente."
+    tipo: texto
+    campos: [secciones.ventajas.titulo, secciones.ventajas.texto, secciones.ventajas.items]
+  - id: aseguradoras
+    titulo: "Compañías"
+    pregunta: "¿Con qué aseguradoras trabajas? Una por línea."
+    ayuda: "Solo los nombres. Si prefieres no mostrarlas, oculta este apartado en Contenido."
+    tipo: texto
+    campos: [secciones.aseguradoras.titulo, secciones.aseguradoras.texto, secciones.aseguradoras.items]
+  - id: proceso
+    titulo: "Cómo trabajas"
+    pregunta: "¿Cómo es contratar contigo, desde la primera llamada hasta que hay un siniestro?"
+    tipo: texto
+    campos: [secciones.proceso.titulo, secciones.proceso.texto, secciones.proceso.items]
+  - id: preguntas
+    titulo: "Preguntas frecuentes"
+    pregunta: "¿Qué te preguntan más a menudo antes de contratar? Escribe cada pregunta y lo que respondes."
+    ayuda: "Si lo prefieres, añádelas luego en Contenido."
+    tipo: lista
+    campos: [secciones.preguntas.preguntas]
+  - id: presupuesto
+    titulo: "Tu comparativa"
+    pregunta: "¿Qué prometes a quien te pide una comparativa? Plazo de respuesta, cuántas opciones, sin compromiso…"
+    tipo: texto
+    campos: [secciones.presupuesto.titulo, secciones.presupuesto.texto, secciones.presupuesto.items, secciones.presupuesto.opciones]
+  - id: fotos
+    titulo: "Tus fotos"
+    pregunta: "Pon una foto de portada y, si quieres, de tu oficina y de tu calle."
+    ayuda: "Sube las tuyas o elige una del banco. Las que no cambies se quedan como están."
+    tipo: fotos
+    campos: [secciones.hero.imagen, secciones.ventajas.imagen, secciones.presupuesto.imagen, secciones.contacto.imagen]
+  - id: aspecto
+    titulo: "Colores y logo"
+    pregunta: "Elige los colores de tu web y, si tienes, tu logo."
+    tipo: eleccion
+    campos: [colores.primario, colores.acento, logo]
+  - id: repaso
+    titulo: "Repaso"
+    tipo: repaso

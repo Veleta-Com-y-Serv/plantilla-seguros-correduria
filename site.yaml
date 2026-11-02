@@ -1,0 +1,168 @@
+# Contenido de la web. Es lo único que rellena la plataforma NoExpertise.
+# Las secciones se muestran en el orden de este fichero. Para ocultar una: activa: false.
+# Apartado nuevo: un id propio (es su ancla, /#id) con `tipo:` = el diseño de otra sección o `texto`.
+# `resalte`: palabras del título que salen resaltadas (tienen que estar tal cual dentro del título).
+nombre: Ría Seguros
+eslogan: Correduría de seguros en Huelva. Comparamos por ti y te acompañamos cuando pasa algo.
+sector: correduria
+logo: ""          # ruta a una imagen en public/ (p. ej. /logo.svg). Vacío = nombre en texto con un escudo.
+colores:
+  primario: "#0c2340"
+  acento: "#12b886"
+  fondo: "#ffffff"
+  texto: "#0f1d2e"
+contacto:
+  telefono: "959 48 27 13"
+  email: hola@riaseguros.es
+  direccion: "Calle Concepción 14, 21001 Huelva (Huelva)"
+  horario: Lunes a viernes de 9:00 a 14:00 y de 17:00 a 20:00. Sábados de 10:00 a 13:00.
+  whatsapp: "+34 644 21 87 30"
+redes:
+  instagram: https://www.instagram.com/
+  facebook: https://www.facebook.com/
+  linkedin: https://www.linkedin.com/
+menu:
+  - { texto: Seguros, url: "/#ramos" }
+  - { texto: Por qué nosotros, url: "/#ventajas" }
+  - { texto: Cómo trabajamos, url: "/#proceso" }
+  - { texto: Preguntas, url: "/#preguntas" }
+  - { texto: Contacto, url: "/#contacto" }
+boton_cabecera: { texto: Pide tu comparativa, url: "/#presupuesto" }
+seo:
+  titulo: Ría Seguros · Correduría de seguros en Huelva
+  descripcion: "Seguros de hogar, coche, vida, salud y empresa en Huelva. Comparamos entre varias compañías y te ayudamos con los partes. Comparativa gratis."
+  tipo: InsuranceAgency   # tipo de schema.org (InsuranceAgency, LocalBusiness…)
+marca_pie: true   # «Web creada con NoExpertise» en el pie (plan gratis)
+
+secciones:
+  hero:
+    activa: true
+    antetitulo: Correduría de seguros · Huelva
+    titulo: Tu seguro, comparado y bien explicado
+    resalte: bien explicado
+    texto: "Buscamos entre varias aseguradoras la póliza que te cubre de verdad al mejor precio. Y si tienes un siniestro, el parte lo llevamos nosotros."
+    imagen: /fotos/hero.jpg
+    cta: { texto: Pide tu comparativa, url: "/#presupuesto" }
+    cta_secundario: { texto: Ver seguros, url: "/#ramos" }
+    nota: "Corredores colegiados desde 2006"
+    items:   # barra de confianza bajo la portada (titulo + icono)
+      - { titulo: Comparativa sin coste, icono: balanza }
+      - { titulo: Más de diez compañías, icono: escudo }
+      - { titulo: Gestión de siniestros, icono: salvavidas }
+      - { titulo: Atención en persona, icono: usuarios }
+
+  ramos:
+    activa: true
+    antetitulo: Seguros
+    titulo: Un seguro para cada cosa que te importa
+    resalte: te importa
+    texto: "Particulares, autónomos y empresas. Te explicamos qué cubre cada póliza, qué no y cuánto cuesta, sin letra pequeña."
+    cta: { texto: Pide tu comparativa, url: "/#presupuesto" }
+    ramos:
+      - { titulo: Hogar, texto: "Daños por agua, robo, responsabilidad civil y asistencia 24 horas para tu casa o tu alquiler.", icono: casa, imagen: /fotos/ramo-hogar.jpg, url: "/#presupuesto" }
+      - { titulo: Coche y moto, texto: "Terceros, terceros ampliado o todo riesgo, con o sin franquicia. Y asistencia en carretera desde el kilómetro cero.", icono: coche, imagen: /fotos/ramo-coche.jpg, url: "/#presupuesto" }
+      - { titulo: Vida, texto: "Protege a los tuyos y tu hipoteca con un capital a tu medida, también desvinculado del banco.", icono: corazon, imagen: /fotos/ramo-vida.jpg, url: "/#presupuesto" }
+      - { titulo: Salud, texto: "Cuadro médico amplio en Huelva y en toda España, con o sin copago y dental incluido.", icono: salud, imagen: /fotos/ramo-salud.jpg, url: "/#presupuesto" }
+      - { titulo: Empresa y autónomos, texto: "Responsabilidad civil, comercio, flotas, accidentes y convenio. Todo revisado una vez al año.", icono: maletin, imagen: /fotos/ramo-empresa.jpg, url: "/#presupuesto" }
+
+  ventajas:
+    activa: true
+    antetitulo: Por qué nosotros
+    titulo: Trabajamos para ti, no para una aseguradora
+    resalte: para ti
+    texto: |
+      Un corredor no vende las pólizas de una sola compañía: compara entre muchas y te recomienda la que más te conviene. La ley nos obliga a ser independientes y a asesorarte por escrito.
+
+      Somos una oficina pequeña en el centro de Huelva. Nos conoces, nos llamas y te atiende siempre la misma persona.
+    imagen: /fotos/oficina.jpg
+    cta: { texto: Conoce cómo trabajamos, url: "/#proceso" }
+    items:
+      - { titulo: Independientes, texto: "Comparamos entre más de diez aseguradoras.", icono: balanza }
+      - { titulo: Sin coste para ti, texto: "La comparativa y el asesoramiento no se pagan aparte.", icono: euro }
+      - { titulo: A tu lado en el siniestro, texto: "Abrimos el parte, hablamos con el perito y te contamos cada paso.", icono: salvavidas }
+      - { titulo: Revisión cada año, texto: "Antes de cada renovación miramos si hay algo mejor.", icono: calendario }
+
+  aseguradoras:
+    activa: true
+    antetitulo: Compañías
+    titulo: Comparamos entre las aseguradoras con las que trabajamos
+    resalte: Comparamos
+    texto: "Elegimos la compañía según lo que necesitas, no según quién paga más comisión."
+    items:
+      - { titulo: Albor Seguros, texto: "Hogar · Auto" }
+      - { titulo: Mutua Ribera, texto: "Salud · Vida" }
+      - { titulo: Previsora Litoral, texto: "Hogar · Comercio" }
+      - { titulo: Garantía Azul, texto: "Auto · Moto" }
+      - { titulo: Cumbre Salud, texto: Salud }
+      - { titulo: Vela Patrimonial, texto: "Empresa · RC" }
+      - { titulo: Nexo Vida, texto: "Vida · Ahorro" }
+      - { titulo: Faro Empresas, texto: "Flotas · Accidentes" }
+
+  proceso:
+    activa: true
+    antetitulo: Cómo trabajamos
+    titulo: Comparar, contratar y estar cuando pasa algo
+    resalte: cuando pasa algo
+    texto: "Tres pasos y una sola persona de referencia. Sin llamadas de centralita ni esperas."
+    items:
+      - { titulo: Comparamos, texto: "Nos cuentas qué quieres asegurar y en 24 horas tienes una comparativa por escrito con tres opciones.", icono: balanza, duracion: En 24 horas }
+      - { titulo: Contratas, texto: "Eliges la póliza, la firmamos en la oficina o desde el móvil y te explicamos qué cubre y qué no.", icono: documento, duracion: El mismo día }
+      - { titulo: Te acompañamos, texto: "Si tienes un siniestro, nos llamas a nosotros. Abrimos el parte y lo seguimos hasta que se resuelve.", icono: salvavidas, duracion: Siempre }
+
+  cifras:
+    activa: true
+    antetitulo: En números
+    titulo: Veinte años asegurando a familias y negocios de Huelva
+    items:
+      - { titulo: "20", texto: años en Huelva }
+      - { titulo: "+3.200", texto: pólizas gestionadas }
+      - { titulo: "12", texto: aseguradoras comparadas }
+      - { titulo: "24 h", texto: para tener tu comparativa }
+
+  opiniones:
+    activa: true
+    antetitulo: Opiniones
+    titulo: Lo que cuentan nuestros clientes
+    resalte: nuestros clientes
+    testimonios:
+      - { texto: "Se me inundó la cocina un domingo. El lunes a primera hora ya tenía el parte abierto y el perito vino a casa esa misma semana.", autor: Rocío Márquez, cargo: "Seguro de hogar, Isla Chica", nota: "5" }
+      - { texto: "Pagaba de más por el seguro del coche desde hacía años. Me hicieron la comparativa en un día y ahora tengo más coberturas por menos.", autor: Antonio Vázquez, cargo: "Seguro de coche, Punta Umbría", nota: "5" }
+      - { texto: "Para el bar necesitábamos responsabilidad civil y el seguro del local. Nos lo explicaron todo sin prisas y nos lo revisan cada año.", autor: Carmen Toscano, cargo: "Bar La Ribera, El Molino", nota: "5" }
+
+  preguntas:
+    activa: true
+    antetitulo: Preguntas frecuentes
+    titulo: Lo que nos preguntan antes de contratar
+    resalte: antes de contratar
+    cta: { texto: Pregúntanos lo que quieras, url: "/#contacto" }
+    preguntas:
+      - { pregunta: "¿Qué diferencia hay entre un corredor y un agente de seguros?", respuesta: "El agente trabaja para una sola compañía. El corredor es independiente: compara entre varias y te recomienda por escrito la que mejor encaja contigo." }
+      - { pregunta: "¿Me cuesta algo la comparativa?", respuesta: "No. La comparativa y el asesoramiento no se pagan aparte. Solo pagas la prima de la póliza que elijas." }
+      - { pregunta: "¿Puedo cambiar mi seguro actual aunque no haya vencido?", respuesta: "Hay que avisar a tu compañía con un mes de antelación antes del vencimiento. Te ayudamos con la carta y con las fechas para que no te quedes sin cobertura." }
+      - { pregunta: "¿Qué hago si tengo un siniestro?", respuesta: "Llámanos o escríbenos por WhatsApp. Abrimos el parte, hablamos con la compañía y con el perito, y te contamos cada paso hasta que se resuelve." }
+      - { pregunta: "¿Atendéis fuera de Huelva capital?", respuesta: "Sí. Tenemos clientes en toda la provincia y en el resto de España. Lo podemos hacer todo por teléfono, correo y firma desde el móvil." }
+
+  presupuesto:
+    activa: true
+    antetitulo: Comparativa gratis
+    titulo: Pide tu comparativa y te llamamos hoy
+    resalte: te llamamos hoy
+    texto: "Dinos qué quieres asegurar y cómo localizarte. En 24 horas tienes tres opciones por escrito, sin compromiso."
+    imagen: /fotos/presupuesto.jpg
+    opciones: "Hogar; Coche o moto; Vida; Salud; Empresa o autónomo; Otro"
+    boton: Quiero mi comparativa
+    cta: { texto: Prefiero escribir por WhatsApp, url: "https://wa.me/34644218730" }
+    nota: Sin compromiso. Tus datos solo se usan para preparar la comparativa.
+    items:
+      - { titulo: Respuesta en 24 horas laborables }
+      - { titulo: Tres opciones por escrito }
+      - { titulo: Sin compromiso de contratación }
+
+  contacto:
+    activa: true
+    antetitulo: Contacto
+    titulo: Pásate por la oficina o llámanos
+    resalte: llámanos
+    texto: "Estamos en el centro de Huelva, a dos minutos de la plaza de las Monjas. Si lo prefieres, vamos nosotros."
+    imagen: /fotos/contacto.jpg
+    boton: Enviar mensaje

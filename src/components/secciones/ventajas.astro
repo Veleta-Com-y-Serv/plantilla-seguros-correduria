@@ -1,0 +1,60 @@
+---
+// Por qué nosotros: banda niebla partida 50/50 a sangre. La foto toca el borde izquierdo de la ventana con la
+// esquina curva abajo a la derecha; a la derecha, titular, párrafos, `items` en dos columnas (icono en
+// escudo esmeralda, titulo y texto) y un enlace (`cta`). Sin foto, titular a la izquierda y el resto a la
+// derecha. `items`: titulo, texto, icono.
+import { seccion, parrafos, externo } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="banda banda--niebla">
+      <div class:list={['grid', s.imagen && 'lg:grid-cols-2']}>
+        {s.imagen && (
+          <div class="relative min-h-[20rem] sm:min-h-[28rem] lg:min-h-full">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={1000} class="foto-esquina--der absolute inset-0 h-full w-full object-cover" />
+          </div>
+        )}
+        <div class:list={['py-16 md:py-24 lg:py-28', s.imagen ? 'px-4 md:px-12 lg:pl-16 xl:pl-24' : 'contenedor']}>
+          <div class:list={[s.imagen ? 'max-w-[40rem]' : 'grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-16']}>
+            <Titular class="!mb-0" antetitulo={s.antetitulo} titulo={s.titulo} resalte={s.resalte} />
+            <div>
+              {parrafos(s.texto).length > 0 && (
+                <div class="mt-8 space-y-4 text-lg opacity-85">
+                  {parrafos(s.texto).map((p) => <p>{p}</p>)}
+                </div>
+              )}
+              {s.items.length > 0 && (
+                <ul class="mt-10 grid gap-x-8 gap-y-7 border-t border-[var(--c-linea)] pt-8 sm:grid-cols-2">
+                  {s.items.map((it) => (
+                    <li class="flex gap-4">
+                      <span class="relative grid h-12 w-11 shrink-0 place-items-center text-[var(--c-acento-texto)]" aria-hidden="true">
+                        <svg viewBox="0 0 26 29" width="40" height="44" class="absolute"><path d="M13 1l11 4v8c0 7-4.7 12.6-11 15C6.7 25.6 2 20 2 13V5z" fill="color-mix(in srgb, var(--c-acento) 22%, transparent)" /></svg>
+                        <Icono nombre={it.icono || 'check'} tam={20} class="relative" />
+                      </span>
+                      <div class="min-w-0">
+                        <h3 class="text-xl text-primario">{it.titulo}</h3>
+                        {it.texto && <p class="mt-1 opacity-75">{it.texto}</p>}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {s.cta && (
+                <a class="enlace-flecha mt-8 text-primario" href={s.cta.url} {...(externo(s.cta.url) && { rel: 'noopener', target: '_blank' })}>
+                  {s.cta.texto} <Icono nombre="flecha" tam={18} />
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

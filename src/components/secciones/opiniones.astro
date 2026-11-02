@@ -1,0 +1,53 @@
+---
+// Opiniones: banda marino; titular a la izquierda y opiniones en columnas separadas por filetes (sin
+// tarjetas): comillas grandes en esmeralda, texto en serifa, estrellas, iniciales en círculo, autor y cargo.
+// `testimonios`: texto, autor, cargo, nota («1»-«5»). Sin opiniones no se pinta.
+import { seccion, estrellas, iniciales } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const lista = s ? s.testimonios : [];
+---
+
+{
+  s && lista.length > 0 && (
+    <Seccion id={Astro.props.id} banda="marino">
+      <svg slot="fondo" class="escudo-agua -right-24 -bottom-40 h-[40rem] w-[36rem]" viewBox="0 0 26 29" aria-hidden="true"><path d="M13 1l11 4v8c0 7-4.7 12.6-11 15C6.7 25.6 2 20 2 13V5z" fill="currentColor" /></svg>
+      <Titular antetitulo={s.antetitulo} titulo={s.titulo} resalte={s.resalte} texto={s.texto} />
+      <ul class:list={['grid gap-y-12 md:grid-cols-2', lista.length >= 3 && 'lg:grid-cols-3']}>
+        {lista.map((t) => (
+          <li class="opinion flex flex-col">
+            <span class="font-display text-7xl leading-[.6] text-acento" aria-hidden="true">“</span>
+            <blockquote class="mt-4 font-display text-xl leading-relaxed md:text-[1.4rem]">{t.texto}</blockquote>
+            <div class="mt-auto flex items-center gap-4 pt-8">
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-acento font-bold text-[var(--c-oscuro)]" aria-hidden="true">{iniciales(t.autor)}</span>
+              <div class="min-w-0">
+                <p class="font-bold">{t.autor}</p>
+                {t.cargo && <p class="text-sm opacity-70">{t.cargo}</p>}
+              </div>
+              {estrellas(t.nota) > 0 && (
+                <p class="ml-auto flex shrink-0 text-acento" aria-label={`${estrellas(t.nota)} de 5 estrellas`}>
+                  {Array.from({ length: estrellas(t.nota) }).map(() => <Icono nombre="estrella" tam={16} class="fill-current" />)}
+                </p>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </Seccion>
+  )
+}
+
+<style>
+  .opinion { padding-top: 2rem; border-top: 1px solid var(--c-linea-oscura); }
+  @media (min-width: 768px) {
+    .opinion { padding: 0 2.25rem; border-top: 0; border-left: 1px solid var(--c-linea-oscura); }
+    .opinion:nth-child(2n + 1) { padding-left: 0; border-left: 0; }
+  }
+  @media (min-width: 1024px) {
+    .opinion:nth-child(2n + 1) { padding-left: 2.25rem; border-left: 1px solid var(--c-linea-oscura); }
+    .opinion:nth-child(3n + 1) { padding-left: 0; border-left: 0; }
+  }
+</style>

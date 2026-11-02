@@ -1,0 +1,76 @@
+---
+// Cabecera a todo el ancho y pegada arriba (sticky): en escritorio, una franja fina marino profundo con el
+// teléfono, el horario y el email; debajo, la barra blanca con la marca (escudo + nombre), el menú y el botón
+// esmeralda. En móvil, botón redondo de llamar y menú plegable sin JavaScript (<details>).
+// El aspecto lo da src/styles/global.css (.cabecera--<variante>).
+import { site, tel } from '../data/site';
+import type { Enlace } from '../data/site';
+import Icono from './ui/Icono.astro';
+interface Props { variante?: string; cta?: Enlace | null }
+const { variante = 'poliza', cta = null } = Astro.props;
+const c = site.contacto;
+const hayFranja = Boolean(c.telefono || c.horario || c.email);
+---
+
+<header class={`cabecera cabecera--${variante}`}>
+  {
+    hayFranja && (
+      <div class="barra-fina hidden lg:block">
+        <div class="contenedor flex min-h-9 items-center gap-6">
+          {c.horario && <p class="flex min-w-0 items-center gap-2 truncate opacity-80"><Icono nombre="reloj" tam={15} /><span class="truncate">{c.horario}</span></p>}
+          <div class="ml-auto flex shrink-0 items-center gap-6">
+            {c.email && <a href={`mailto:${c.email}`} class="flex items-center gap-2 no-underline opacity-80 hover:opacity-100"><Icono nombre="correo" tam={15} />{c.email}</a>}
+            {c.telefono && <a href={tel(c.telefono)} class="flex items-center gap-2 font-bold text-acento no-underline"><Icono nombre="telefono" tam={15} />{c.telefono}</a>}
+          </div>
+        </div>
+      </div>
+    )
+  }
+  <div class="contenedor cabecera-fila">
+    <a href="/" class="marca" aria-label={`${site.nombre}, inicio`}>
+      {
+        site.logo ? (
+          <img src={site.logo} alt={site.nombre} class="marca-logo" width="160" height="40" />
+        ) : (
+          <>
+            <span class="marca-escudo" aria-hidden="true">
+              <svg viewBox="0 0 26 29" width="26" height="29"><path d="M13 1l11 4v8c0 7-4.7 12.6-11 15C6.7 25.6 2 20 2 13V5z" fill="currentColor" /><path d="M8 14.5l3.5 3.5L18.5 11" fill="none" stroke="var(--c-acento)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </span>
+            <span class="marca-nombre">{site.nombre}</span>
+          </>
+        )
+      }
+    </a>
+    <nav class="cabecera-nav" aria-label="Menú principal">
+      {site.menu.map((e) => <a href={e.url}>{e.texto}</a>)}
+    </nav>
+    {cta && cta.url && <a href={cta.url} class="btn cabecera-cta">{cta.texto}</a>}
+    {c.telefono && <a href={tel(c.telefono)} class="tel-movil" aria-label={`Llamar al ${c.telefono}`}><Icono nombre="telefono" tam={20} /></a>}
+    {
+      site.menu.length > 0 && (
+        <details class="menu-movil">
+          <summary>
+            <span class="menu-movil-icono" aria-hidden="true" />
+            <span>Menú</span>
+          </summary>
+          <nav class="menu-movil-panel" aria-label="Menú">
+            {site.menu.map((e) => <a href={e.url}>{e.texto}</a>)}
+            {cta && cta.url && <a href={cta.url} class="btn">{cta.texto}</a>}
+          </nav>
+        </details>
+      )
+    }
+  </div>
+</header>
+<script is:inline>
+  (function () {
+    var c = document.querySelector('.cabecera');
+    document.querySelectorAll('.menu-movil a').forEach(function (a) {
+      a.addEventListener('click', function () { a.closest('details').open = false; });
+    });
+    if (!c) return;
+    var mirar = function () { c.classList.toggle('con-sombra', window.scrollY > 8); };
+    window.addEventListener('scroll', mirar, { passive: true });
+    mirar();
+  })();
+</script>

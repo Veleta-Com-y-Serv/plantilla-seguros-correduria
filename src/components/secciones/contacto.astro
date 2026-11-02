@@ -1,0 +1,74 @@
+---
+// Contacto partido a sangre: a la izquierda (banda blanca) titular, teléfono enorme en serifa, el resto de
+// datos de site.yaml → contacto y botones de llamar, WhatsApp y cómo llegar; a la derecha la foto hasta el
+// borde de la ventana con la esquina curva. Si la web no tiene la sección `presupuesto` activa, aquí sale el
+// formulario (mailto). `boton`: texto del botón del formulario.
+import { seccion, site, tel, mapa, whatsapp } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+import Imagen from '../ui/Imagen.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const c = site.contacto;
+const conFormulario = !seccion('presupuesto');
+const datos = [
+  c.email && { icono: 'correo', etiqueta: 'Email', valor: c.email, url: `mailto:${c.email}`, fuera: false },
+  c.whatsapp && { icono: 'whatsapp', etiqueta: 'WhatsApp', valor: c.whatsapp, url: whatsapp(c.whatsapp), fuera: true },
+  c.direccion && { icono: 'mapa', etiqueta: 'Oficina', valor: c.direccion, url: mapa(c.direccion), fuera: true },
+  c.horario && { icono: 'reloj', etiqueta: 'Horario', valor: c.horario, url: '', fuera: false },
+].filter(Boolean) as { icono: string; etiqueta: string; valor: string; url: string; fuera: boolean }[];
+const boton = String(s?.boton ?? '').trim() || 'Enviar mensaje';
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="banda banda--blanca">
+      <div class:list={['grid', s.imagen && 'lg:grid-cols-2']}>
+        <div class:list={['py-16 md:py-24 lg:py-28', s.imagen ? 'px-4 md:px-12 lg:pr-16' : 'contenedor']}>
+          <div class:list={[s.imagen && 'max-w-[40rem] lg:ml-auto']}>
+            <Titular class="!mb-0" antetitulo={s.antetitulo} titulo={s.titulo} resalte={s.resalte} texto={s.texto} />
+            {c.telefono && (
+              <a href={tel(c.telefono)} class="mt-10 inline-block font-display text-[clamp(2.4rem,6vw,4.5rem)] font-bold leading-none tracking-tight text-primario no-underline hover:text-[var(--c-acento-texto)]">
+                {c.telefono}
+              </a>
+            )}
+            {datos.length > 0 && (
+              <dl class="mt-10 grid gap-6 border-t border-[var(--c-linea)] pt-8 sm:grid-cols-2">
+                {datos.map((d) => (
+                  <div class="flex gap-3">
+                    <Icono nombre={d.icono} class="mt-0.5 shrink-0 text-[var(--c-acento-texto)]" tam={20} />
+                    <div class="min-w-0">
+                      <dt class="text-xs font-bold uppercase tracking-[.16em] opacity-60">{d.etiqueta}</dt>
+                      <dd class="mt-1 break-words">
+                        {d.url ? <a href={d.url} class="hover:text-[var(--c-acento-texto)]" {...(d.fuera && { rel: 'noopener', target: '_blank' })}>{d.valor}</a> : d.valor}
+                      </dd>
+                    </div>
+                  </div>
+                ))}
+              </dl>
+            )}
+            {(c.telefono || c.whatsapp || c.direccion) && (
+              <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                {c.telefono && <a class="btn" href={tel(c.telefono)}>Llamar ahora</a>}
+                {c.whatsapp && <a class="btn-sec text-primario" href={whatsapp(c.whatsapp)} rel="noopener" target="_blank">WhatsApp</a>}
+                {c.direccion && <a class="btn-sec text-primario" href={mapa(c.direccion)} rel="noopener" target="_blank">Cómo llegar</a>}
+              </div>
+            )}
+            {conFormulario && (
+              <div class="mt-14 border-t border-[var(--c-linea)] pt-10">
+                <FormularioContacto boton={boton} prefijo="c" />
+              </div>
+            )}
+          </div>
+        </div>
+        {s.imagen && (
+          <div class="relative min-h-[20rem] sm:min-h-[28rem] lg:min-h-full">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={1000} class="foto-esquina--arriba absolute inset-0 h-full w-full object-cover" />
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}

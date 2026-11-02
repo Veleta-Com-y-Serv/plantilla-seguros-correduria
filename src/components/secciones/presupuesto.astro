@@ -1,0 +1,65 @@
+---
+// Presupuesto («Pide tu comparativa»): partido a sangre. Mitad izquierda en marino profundo hasta el borde
+// (foto de fondo muy tenue si hay `imagen`): titular, `items` como garantías con check esmeralda, enlace
+// secundario (`cta`, p. ej. WhatsApp) y teléfono. Mitad derecha en niebla con el formulario (mailto) y el
+// desplegable «¿Qué quieres asegurar?»: `opciones` (separadas por «;») o, si no hay, los títulos de `ramos`.
+// `boton`: texto del botón; `nota`: aviso bajo el botón. `items`: titulo.
+import { seccion, site, tel, separar, externo } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+import Imagen from '../ui/Imagen.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const ramos = seccion('ramos');
+const opciones = s ? (separar(s.opciones).length ? separar(s.opciones) : (ramos?.ramos ?? []).map((r) => r.titulo)) : [];
+const boton = String(s?.boton ?? '').trim() || 'Pedir presupuesto';
+const nota = String(s?.nota ?? '').trim();
+const c = site.contacto;
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="banda bg-[var(--c-claro)] text-texto">
+      <div class="grid lg:grid-cols-[1fr_1.15fr]">
+        <div class="banda banda--abismo px-4 py-16 md:px-12 md:py-24 lg:py-28">
+          {s.imagen && (
+            <div class="absolute inset-0 -z-10" aria-hidden="true">
+              <Imagen src={s.imagen} alt="" ancho={1200} alto={1000} class="h-full w-full object-cover opacity-15 mix-blend-luminosity" />
+            </div>
+          )}
+          <div class="max-w-[36rem] lg:ml-auto">
+            <Titular class="!mb-0" antetitulo={s.antetitulo} titulo={s.titulo} resalte={s.resalte} texto={s.texto} />
+            {s.items.length > 0 && (
+              <ul class="mt-10 space-y-4">
+                {s.items.map((it) => (
+                  <li class="flex items-center gap-3 text-lg">
+                    <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-acento text-[var(--c-oscuro)]" aria-hidden="true"><Icono nombre={it.icono || 'check'} tam={16} /></span>
+                    {it.titulo}
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div class="mt-10 flex flex-col gap-4 border-t border-[var(--c-linea-oscura)] pt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-8">
+              {c.telefono && (
+                <a href={tel(c.telefono)} class="flex items-center gap-3 font-display text-2xl font-bold text-acento no-underline hover:underline md:text-3xl">
+                  <Icono nombre="telefono" tam={24} />{c.telefono}
+                </a>
+              )}
+              {s.cta && (
+                <a href={s.cta.url} class="enlace-flecha" {...(externo(s.cta.url) && { rel: 'noopener', target: '_blank' })}>
+                  {s.cta.texto} <Icono nombre="flecha" tam={18} />
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+        <div class="px-4 py-16 md:px-12 md:py-24 lg:py-28">
+          <div class="max-w-[40rem]">
+            <FormularioContacto boton={boton} opciones={opciones} prefijo="p" nota={nota} asunto={`Comparativa de seguros desde la web de ${site.nombre}`} />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

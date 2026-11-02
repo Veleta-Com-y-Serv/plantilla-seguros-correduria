@@ -1,0 +1,66 @@
+---
+// Formulario sin servidor: si hay email en site.yaml abre el programa de correo (mailto).
+// Si no hay email, se queda como muestra y lo avisa. Para un envío real, cambia `action` por el de tu proveedor.
+// `opciones`: si llega, añade el desplegable «¿Qué quieres asegurar?» (presupuesto). `prefijo` evita ids
+// repetidos cuando hay dos formularios en la página.
+import { site } from '../../data/site';
+interface Props { boton?: string; class?: string; asunto?: string; opciones?: string[]; prefijo?: string; nota?: string }
+const {
+  boton = 'Enviar mensaje',
+  class: clase = '',
+  asunto = `Consulta desde la web de ${site.nombre}`,
+  opciones = [],
+  prefijo = 'f',
+  nota = '',
+} = Astro.props;
+const email = site.contacto.email;
+const accion = email ? `mailto:${email}?subject=${encodeURIComponent(asunto)}` : '';
+const id = (c: string) => `${prefijo}-${c}`;
+---
+
+<form class:list={['formulario', clase]} action={accion || undefined} method="post" enctype="text/plain">
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div class="campo">
+      <label for={id('nombre')}>Nombre</label>
+      <input id={id('nombre')} name="nombre" type="text" autocomplete="name" required />
+    </div>
+    <div class="campo">
+      <label for={id('telefono')}>Teléfono</label>
+      <input id={id('telefono')} name="telefono" type="tel" autocomplete="tel" inputmode="tel" required />
+    </div>
+  </div>
+  <div class:list={['grid gap-4', opciones.length > 0 && 'sm:grid-cols-2']}>
+    <div class="campo">
+      <label for={id('email')}>Email <span class="font-normal opacity-70">(opcional)</span></label>
+      <input id={id('email')} name="email" type="email" autocomplete="email" />
+    </div>
+    {
+      opciones.length > 0 && (
+        <div class="campo">
+          <label for={id('ramo')}>¿Qué quieres asegurar?</label>
+          <select id={id('ramo')} name="seguro" required>
+            <option value="">Elige una opción</option>
+            {opciones.map((o) => <option value={o}>{o}</option>)}
+          </select>
+        </div>
+      )
+    }
+  </div>
+  <div class="campo">
+    <label for={id('mensaje')}>{opciones.length > 0 ? 'Cuéntanos un poco más' : 'Mensaje'}</label>
+    <textarea id={id('mensaje')} name="mensaje" rows="4" required></textarea>
+  </div>
+  <label class="campo-check">
+    <input type="checkbox" name="privacidad" required />
+    <span>He leído el <a href="/aviso-legal">aviso legal y la política de privacidad</a>.</span>
+  </label>
+  <button type="submit" class="btn">{boton}</button>
+  {nota && <p class="formulario-aviso">{nota}</p>}
+  <p class="formulario-aviso">
+    {
+      email
+        ? 'Al enviar se abre tu programa de correo con el mensaje listo.'
+        : 'Formulario de muestra: todavía no envía mensajes. Usa el teléfono o el email de contacto.'
+    }
+  </p>
+</form>

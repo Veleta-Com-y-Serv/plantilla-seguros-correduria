@@ -1,0 +1,56 @@
+---
+// Apartado de texto genérico: antetítulo, título (con `resalte`), párrafos, foto, lista y botón.
+// Lo usan los apartados nuevos que pide el cliente (site.yaml: `tipo: texto`). Con foto, partido 50/50 a
+// sangre en banda niebla (la foto toca el borde derecho, con la esquina curva); sin foto, título a la
+// izquierda y texto a la derecha. `items`: titulo, texto, icono.
+import { seccion, parrafos, externo } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+import Resalte from '../ui/Resalte.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+---
+
+{
+  s && (
+    <section id={Astro.props.id} class="banda banda--niebla">
+      <div class:list={['grid', s.imagen && 'lg:grid-cols-2']}>
+        <div class:list={['py-16 md:py-24 lg:py-28', s.imagen ? 'px-4 md:px-12 lg:pr-16' : 'contenedor']}>
+          <div class:list={[s.imagen ? 'max-w-[40rem] lg:ml-auto' : 'grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-16']}>
+            <div>
+              {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+              {s.titulo && <h2 class="titulo-seccion"><Resalte texto={s.titulo} resalte={s.resalte} /></h2>}
+            </div>
+            <div>
+              <div class="mt-8 space-y-4 text-lg opacity-85">
+                {parrafos(s.texto).map((p) => <p>{p}</p>)}
+              </div>
+              {s.items.length > 0 && (
+                <ul class="mt-8 space-y-4">
+                  {s.items.map((it) => (
+                    <li class="flex gap-4">
+                      <span class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-acento text-[var(--c-oscuro)]" aria-hidden="true">
+                        <Icono nombre={it.icono || 'check'} tam={16} />
+                      </span>
+                      <div>
+                        <p class="font-bold text-primario">{it.titulo}</p>
+                        {it.texto && <p class="text-sm opacity-75">{it.texto}</p>}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {s.cta && <a class="btn mt-8" href={s.cta.url} {...(externo(s.cta.url) && { rel: 'noopener', target: '_blank' })}>{s.cta.texto}</a>}
+            </div>
+          </div>
+        </div>
+        {s.imagen && (
+          <div class="relative min-h-[20rem] sm:min-h-[28rem] lg:min-h-full">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={1000} class="foto-esquina absolute inset-0 h-full w-full object-cover" />
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
