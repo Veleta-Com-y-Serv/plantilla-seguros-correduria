@@ -12,6 +12,7 @@ import { seccion, site, tel, whatsapp } from '../../data/site';
 import { fichas, relacionadas, resumen } from '../../lib/paginas';
 import type { Ficha } from '../../lib/paginas';
 import { altGaleria, jsonLdFicha, jsonLdMigas, urlBase } from '../../lib/seo';
+import { enlace, rutaDeSeccion } from '../../lib/multipagina';
 
 export function getStaticPaths() {
   return fichas().map((f) => ({ params: { coleccion: f.def.ruta, slug: f.slug }, props: { f } }));
@@ -23,11 +24,11 @@ const base = urlBase(Astro.site);
 const nombreSeccion = String(f.seccion.antetitulo || f.seccion.titulo || f.def.nombre).trim();
 const migas = [
   { nombre: 'Inicio', ruta: '/' },
-  { nombre: nombreSeccion, ruta: `/#${f.idSeccion}` },
+  { nombre: nombreSeccion, ruta: rutaDeSeccion(f.idSeccion) },
   { nombre: f.titulo, ruta: f.url },
 ];
 const c = site.contacto;
-const cita = seccion('presupuesto') ? '/#presupuesto' : site.boton_cabecera?.url || '/#contacto';
+const cita = seccion('presupuesto') ? enlace('/#presupuesto') : site.boton_cabecera?.url || enlace('/#contacto');
 const textoCita = site.boton_cabecera?.texto || 'Pide tu comparativa';
 const wa = whatsapp(c.whatsapp, `Hola, quiero información sobre el seguro de ${f.titulo}`);
 const datos = f.datos.filter((d) => d.clave !== 'precio');
@@ -121,7 +122,7 @@ const descripcion = resumen(f.texto || f.detalle[0] || '');
             </li>
           ))}
         </ul>
-        <p class="mt-10"><a class="btn" href={`/#${f.idSeccion}`}>Ver todos los seguros</a></p>
+        <p class="mt-10"><a class="btn" href={rutaDeSeccion(f.idSeccion)}>Ver todos los seguros</a></p>
       </div>
     </section>
   )}
