@@ -21,7 +21,7 @@ secciones:
   - { id: contacto, nombre: Contacto }
 estilo: confiable
 plan_minimo: presencia
-version: 1.2.0
+version: 1.2.1
 base: astrowind
 demo_url: https://demo-plantilla-seguros-correduria.noexpertise.com
 activa: true
@@ -32,10 +32,10 @@ fichas:
   - { lista: ramos, campo: ramos, ruta: seguros, nombre: Seguro, tipo: Service }
 
 # Varias páginas (docs/plantillas.md § Varias páginas): reparto recomendado al activar «Varias páginas».
-# Inicio se queda con la portada y lo que no esté en ninguna página (aquí, cifras).
+# Inicio se queda con la portada y lo que no esté en ninguna página (aquí, por qué nosotros, cifras).
 paginas:
   - { ruta: seguros, titulo: Seguros, secciones: "ramos; aseguradoras" }
-  - { ruta: la-correduria, titulo: La correduría, secciones: "ventajas; proceso; opiniones" }
+  - { ruta: como-trabajamos, titulo: Cómo trabajamos, secciones: "proceso; opiniones" }
   - { ruta: presupuesto, titulo: Presupuesto, secciones: "preguntas; presupuesto; contacto" }
 
 # Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
